@@ -10,6 +10,10 @@ app.use(router)
 
 // global components
 import Butt from './components/Butt.vue'
+import Cont from './components/Cont.vue'
+import Scrollable from './components/Scrollable.vue'
 app.component('Butt', Butt)
+app.component('Cont', Cont)
+app.component('Scrollable', Scrollable)
 
 app.mount('#app')

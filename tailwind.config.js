@@ -19,11 +19,19 @@ module.exports = {
                 'space': '24px',
             },
             gridTemplateColumns: {
-                main: '300px 1fr',
+                main: '300px 1fr'
             },
             gridTemplateRows: {
-
+                results: '1fr auto'
             },
+            borderRadius: {
+                main: '1rem',
+                half: '.5rem'
+            },
+            boxShadow: {
+                hover: 'inset  0 0 0px 4px rgba(59, 130, 246, .5);',
+                hoverSmall: 'inset  0 0 0px 2px rgba(59, 130, 246, .5);'
+            }
         },
     },
     variants: {
