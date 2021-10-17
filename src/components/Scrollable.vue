@@ -42,15 +42,12 @@ export default {
         };
     },
     mounted() {
-        window.addEventListener("resize", this.scroll);
-        this.scroll()
+        // window.addEventListener("resize", this.scroll);
+        // this.scroll()
     },
     methods: {
         scroll() {
             const target = this.$refs[this.reference]
-
-            // if (target.offsetHeight == target.scrollHeight) {              
-            // }
 
             if (target.scrollTop > 0) {
                 this.showTop = true;
@@ -60,7 +57,7 @@ export default {
 
             if (
                 target.offsetHeight + Math.ceil(target.scrollTop) >=
-                target.scrollHeight || target.offsetHeight == target.scrollHeight
+                target.scrollHeight
             ) {
                 this.showBottom = false;
             } else {

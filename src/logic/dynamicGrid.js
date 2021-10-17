@@ -5,9 +5,8 @@ let once = false
 export const setDynamicGrid = t => {
 
     const target = document.querySelector('#cont')
-
-    console.log('✨✨✨')
     const route = router.currentRoute.value.name
+    const tItems = route == 'home' ? 'totalItems' : 'totalHistoryItems'
 
     if (store.state.isLarge) {
         once = false
@@ -21,7 +20,7 @@ export const setDynamicGrid = t => {
         const pageSize = 16
         store.state.gridStyle = `grid-template-columns: repeat(1, 1fr);`
         store.state.pagination.pageSize = pageSize
-        store.state.pagination.total = Math.ceil(store.state.totalItems / pageSize)
+        store.state.pagination.total = Math.ceil(store.state[tItems] / pageSize)
         store.state.pagination.actual = 1
         once = true
         updatePagination()
@@ -29,13 +28,13 @@ export const setDynamicGrid = t => {
     }
 
     const minWidth = {
-        home: 325,
+        home: 350,
         history: 1000
     }
 
     const minHeight = {
         home: 250,
-        history: window.innerWidth < 1000 ? 150 : 76
+        history: window.innerWidth < 1000 ? 150 : 75
     }
 
     const columns = Math.floor(target.offsetWidth / minWidth[route]) || 1
@@ -44,7 +43,7 @@ export const setDynamicGrid = t => {
 
     store.state.gridStyle = `grid-template-rows: repeat(${rows}, 1fr); grid-template-columns: repeat(${columns}, 1fr);`
     store.state.pagination.pageSize = pageSize
-    store.state.pagination.total = Math.ceil(store.state.totalItems / pageSize)
+    store.state.pagination.total = Math.ceil(store.state[tItems] / pageSize)
     store.state.pagination.actual = 1
     updatePagination()
 }
@@ -56,4 +55,9 @@ export const updatePagination = () => {
     if (!store.state.isLarge) {
         document.querySelector('#results').scroll({ top: 0, behavior: "smooth" })
     }
+}
+
+export const resetPage = () => {
+    store.state.pagination.actual = 1
+    updatePagination()
 }

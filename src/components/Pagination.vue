@@ -10,7 +10,9 @@
             class="flex items-center"
         >Page {{ $store.state.pagination.actual }} of {{ $store.state.pagination.total }}</div>
         <div class="hidden lg:flex items-center">|</div>
-        <div class="hidden lg:flex items-center">{{ $store.state.totalItems }} total items</div>
+        <div
+            class="hidden lg:flex items-center"
+        >{{ $route.name == 'home' ? $store.state.totalItems : $store.state.totalHistoryItems }} total items</div>
         <Butt
             :disabled="$store.state.pagination.actual == $store.state.pagination.total"
             @click="next"

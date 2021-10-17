@@ -12,15 +12,16 @@ export default createStore({
             total: 0
         },
         totalItems: 0,
+        totalHistoryItems: 0,
         gridStyle: '',
         isMobile: false,
         isLarge: true,
-        doingSomething: false,
         buttonsStates: {},
         items: [],
         itemsHistory: [],
-        itemsOrderProperty: 'cost',
-        itemsHistoryOrderProperty: 'cost'
+        actualOrderType: 'asc',
+        actualOrderBy: 'cost',
+        showSideBarMobile: false
     },
     mutations: {
     },

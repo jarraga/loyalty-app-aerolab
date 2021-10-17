@@ -1,5 +1,4 @@
 const colors = require('tailwindcss/colors')
-
 module.exports = {
     mode: 'jit',
     purge: {
@@ -8,12 +7,25 @@ module.exports = {
             keyframes: true,
         }
     },
-    darkMode: false, // or 'media' or 'class'
+    darkMode: false,
     corePlugins: {
-        // preflight: false,
+        preflight: true,
     },
     theme: {
         extend: {
+            colors: {
+                blue: {
+                    100: 'hsl(189, 100%, 95%)',
+                    200: 'hsl(189, 100%, 85%)',
+                    300: 'hsl(189, 100%, 75%)',
+                    400: 'hsl(189, 100%, 65%)',
+                    500: 'hsl(189, 100%, 55%)',
+                    600: 'hsl(189, 100%, 45%)',
+                    700: 'hsl(189, 100%, 35%)',
+                    800: 'hsl(189, 100%, 25%)',
+                    900: 'hsl(189, 100%, 15%)'
+                }
+            },
             spacing: {
                 'half': '12px',
                 'space': '24px',
@@ -29,15 +41,15 @@ module.exports = {
                 half: '.5rem'
             },
             boxShadow: {
-                hover: 'inset  0 0 0px 4px rgba(59, 130, 246, .5);',
-                hoverSmall: 'inset  0 0 0px 2px rgba(59, 130, 246, .5);'
+                // hover: 'inset  0 0 0px 4px rgba(59, 130, 246, .5);',
+                // hoverSmall: 'inset  0 0 0px 2px rgba(59, 130, 246, .5);'
+                hover: 'inset  0 0 0px 4px hsla(189, 100%, 55%,.5);',
+                hoverSmall: 'inset  0 0 0px 2px hsla(189, 100%, 55%,.5);'
             }
         },
     },
     variants: {
         extend: {},
     },
-    plugins: [
-        // require('@tailwindcss/line-clamp'),
-    ],
+    plugins: [],
 }

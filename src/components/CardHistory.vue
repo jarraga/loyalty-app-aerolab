@@ -5,7 +5,7 @@
         hover
         class="grid grid-cols-[auto,3fr,3fr,1fr,auto] gap-space w-full items-center"
     >
-        <div :class="`flex justify-center w-8`">
+        <div :class="`flex justify-center w-12`">
             <img class="object-contain pointer-events-none" :src="info.img.url" :alt="info.name" />
         </div>
 
@@ -30,7 +30,7 @@
         hover
         class="grid grid-cols-[auto,1fr,1fr] gap-space w-full items-center"
     >
-        <div :class="`flex justify-center w-8`">
+        <div :class="`flex justify-center w-12`">
             <img class="object-contain pointer-events-none" :src="info.img.url" :alt="info.name" />
         </div>
         <div class="flex flex-col justify-start overflow-hidden">
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-
 export default {
     methods: {
         parseDate(value) {

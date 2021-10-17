@@ -16,13 +16,24 @@
   </div>
   <!-- ERROR -->
 
+  <!-- SIDEBAR OVERLAY -->
+  <div
+    style="animation: appear .3s;"
+    v-if="$store.state.showSideBarMobile"
+    class="absolute z-20 p-half h-full"
+  >
+    <SideBar />
+  </div>
+  <!-- SIDEBAR OVERLAY -->
+
   <!-- CONT -->
   <div
     v-show="state == states.READY"
-    :class="`grid gap-4 ${$store.state.isMobile ? 'gap-half p-half grid-cols-1 grid-rows-[auto,1fr,auto]' : 'gap-space p-space grid-cols-main overflow-hidden'} h-full`"
+    :class="`grid ${$store.state.isMobile ? 'gap-half p-half grid-cols-1 grid-rows-[auto,1fr,auto]' : 'gap-space p-space grid-cols-main overflow-hidden'} h-full`"
   >
     <!-- USER & FILTERS -->
-    <SideBar />
+    <HeaderMobile v-if="$store.state.isMobile" />
+    <SideBar v-if="!$store.state.isMobile" />
     <!-- USER & FILTERS -->
 
     <!-- RESULTS -->
@@ -59,7 +70,20 @@
     </Scrollable>
     <!-- RESULTS -->
     <!-- OPTIONS MOBILE -->
-    <Cont v-if="$store.state.isMobile" half style="height: fit-content;">OPTIONS</Cont>
+    <Cont
+      @click="$store.state.showSideBarMobile = true"
+      v-if="$store.state.isMobile"
+      half
+      style="height: fit-content;"
+      class="flex justify-between ring-blue-500 ring-2 ring-opacity-50 ring-inset"
+    >
+      <div class="flex space-x-2">
+        <p class="font-bold">{{ $route.name == 'home' ? 'Items' : 'History' }}</p>
+        <p>|</p>
+        <p>Order by: {{ $store.state.actualOrderBy }}</p>
+      </div>
+      <p>☝🏽</p>
+    </Cont>
     <!-- OPTIONS MOBILE -->
   </div>
   <!-- CONT -->
@@ -75,13 +99,16 @@ import SideBar from '../components/SideBar.vue'
 import CardItem from '../components/CardItem.vue'
 import CardHistory from '../components/CardHistory.vue'
 import Pagination from '../components/Pagination.vue'
+import HeaderMobile from '../components/HeaderMobile.vue'
+import { orderBy } from '../logic/orderBy'
 
 export default {
   components: {
     SideBar,
     CardItem,
     CardHistory,
-    Pagination
+    Pagination,
+    HeaderMobile
   },
   mounted() {
     const cont = document.querySelector('#cont')
@@ -93,13 +120,13 @@ export default {
   },
   methods: {
     async init() {
+      this.state = this.states.LOADING
       try {
         const results = await Promise.all([getUserInfo(), getItems()]);
 
         const itemsObject = {}
-        this.$store.state.buttonsStates = {}
         results[1].forEach(item => {
-          itemsObject[item._id] = { ...item, redeeming: false, timesRedeemed: 0 }
+          itemsObject[item._id] = { ...item, timesRedeemed: 0 }
           this.$store.state.buttonsStates[item._id] = null
         });
 
@@ -107,19 +134,20 @@ export default {
         this.$store.state.userName = user.name;
         this.$store.state.userPoints = user.points;
 
-        // agrego
+        // add times redeemed
         user.redeemHistory.forEach(el => {
           itemsObject[el.productId].timesRedeemed++
         })
+
         const itemsArray = Object.entries(itemsObject).map(([key, item]) => item)
-        itemsArray.sort((a, b) => {
-          if (a.cost > b.cost) return 1
-          else if (a.cost < b.cost) return -1
-          return 0
-        })
+
         this.$store.state.items = itemsArray
         this.$store.state.itemsHistory = user.redeemHistory
+        orderBy('cost')
+
+        // TODO
         this.$store.state.totalItems = itemsArray.length
+        this.$store.state.totalHistoryItems = this.$store.state.itemsHistory.length
 
         this.state = this.states.READY;
       } catch (error) {
@@ -142,6 +170,15 @@ export default {
   watch: {
     '$route'(to, from) {
       setDynamicGrid()
+      this.$store.state.showSideBarMobile = false
+
+      if (to.name == 'history') {
+        this.$store.state.actualOrderType = 'desc'
+        orderBy('createDate')
+      } else {
+        this.$store.state.actualOrderType = 'asc'
+        orderBy('cost')
+      }
     }
   }
 };
@@ -151,14 +188,19 @@ export default {
 @keyframes fade {
   0% {
     opacity: 0;
-    /* transform: scale(0.98); */
-  }
-  50% {
-    /* transform: scale(1.02); */
   }
   100% {
     opacity: 1;
-    /* transform: scale(1); */
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+    top: 25px;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
   }
 }
 </style>

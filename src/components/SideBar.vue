@@ -1,7 +1,18 @@
 <template>
     <!--  DESKTOP -->
-    <Cont v-if="!$store.state.isMobile" class="p-0 overflow-hidden flex flex-col">
-        <img class="h-[150px] object-cover object-right" src="/header.png" alt="header" />
+    <Cont class="p-0 overflow-hidden flex flex-col h-full relative">
+        <div
+            v-if="$store.state.showSideBarMobile"
+            @click="$store.state.showSideBarMobile = false"
+            class="absolute top-8 right-8 p-4"
+        >✖️</div>
+
+        <img
+            v-if="!$store.state.showSideBarMobile"
+            class="h-[150px] object-cover object-right"
+            src="/header.png"
+            alt="header"
+        />
         <div class="p-space bg-gradient-to-b from-[#15DBFF] to-white">
             <p class="text-3xl">{{ $store.state.userName }}</p>
             <p class="mt-4 text-1xl">{{ $store.state.userPoints }} points</p>
@@ -26,24 +37,51 @@
             <div class="flex flex-col min-h-full">
                 <div class="flex-grow">
                     <p>OrderBy</p>
-                    <div class="flex flex-wrap -m-1 pt-4">
-                        <Butt class="m-1" small @click="orderBy('name')">asc</Butt>
-                        <Butt class="m-1" small @click="orderBy('name')">desc</Butt>
+                    <div class="flex flex-wrap -m-1 pt-4 justify-center">
+                        <Butt
+                            :color="$store.state.actualOrderType == 'asc' ? 'blue' : 'gray'"
+                            class="m-1 flex-grow"
+                            small
+                            @click="changeOrderType('asc')"
+                        >asc</Butt>
+                        <Butt
+                            :color="$store.state.actualOrderType == 'desc' ? 'blue' : 'gray'"
+                            class="m-1 flex-grow"
+                            small
+                            @click="changeOrderType('desc')"
+                        >desc</Butt>
                     </div>
                     <!-- SEPARATOR -->
                     <div class="min-h-[1px] max-h-[1px] w-full bg-gray-100 my-4"></div>
                     <!-- SEPARATOR -->
                     <div class="flex flex-wrap -m-1 pt-4">
-                        <Butt class="m-1" small @click="orderBy('name')">name</Butt>
-                        <Butt class="m-1" small @click="orderBy('cost')">cost</Butt>
-                        <Butt class="m-1" small @click="orderBy('category')">category</Butt>
                         <Butt
+                            :color="$store.state.actualOrderBy == 'cost' ? 'blue' : 'gray'"
+                            class="m-1"
+                            small
+                            @click="orderBy('cost')"
+                        >cost</Butt>
+                        <Butt
+                            :color="$store.state.actualOrderBy == 'name' ? 'blue' : 'gray'"
+                            class="m-1"
+                            small
+                            @click="orderBy('name')"
+                        >name</Butt>
+                        <Butt
+                            :color="$store.state.actualOrderBy == 'category' ? 'blue' : 'gray'"
+                            class="m-1"
+                            small
+                            @click="orderBy('category')"
+                        >category</Butt>
+                        <Butt
+                            :color="$store.state.actualOrderBy == 'timesRedeemed' ? 'blue' : 'gray'"
                             class="m-1"
                             small
                             v-if="$route.name == 'home'"
                             @click="orderBy('timesRedeemed')"
                         >timesRedeemed</Butt>
                         <Butt
+                            :color="$store.state.actualOrderBy == 'createDate' ? 'blue' : 'gray'"
                             class="m-1"
                             small
                             v-if="$route.name == 'history'"
@@ -75,39 +113,19 @@
         </div>
     </Cont>
     <!--  DESKTOP -->
-
-    <!--  MOBILE -->
-    <Cont
-        half
-        v-if="$store.state.isMobile"
-        style="background-image: url('/header.png'); height: fit-content; background-repeat: no-repeat;"
-        class="bg-right backdrop-blur-md bg-cover"
-    >
-        <div class="flex items-center w-full justify-between">
-            <p class="text-2xl">{{ $store.state.userName }}</p>
-            <p
-                class="ml-4 px-3 py-1 rounded-full bg-white bg-opacity-50 backdrop-blur-md"
-            >{{ $store.state.userPoints }} points</p>
-        </div>
-    </Cont>
-    <!--  MOBILE -->
 </template>
 
 <script>
-import Scrollable from "./Scrollable.vue"
+
+import { orderBy } from '../logic/orderBy'
 export default {
     methods: {
-        orderBy(property) {
-
-            const array = this.$route.name == 'home' ? 'items' : 'itemsHistory'
-
-
-            this.$store.state[array].sort((a, b) => {
-                if (a[property] > b[property]) return -1
-                else if (a[property] < b[property]) return 1
-                return 0
-            })
+        changeOrderType(order) {
+            console.log(order)
+            this.$store.state.actualOrderType = order
+            orderBy(this.$store.state.actualOrderBy)
         },
+        orderBy
     }
 }
 </script>

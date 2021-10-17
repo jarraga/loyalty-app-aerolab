@@ -1,16 +1,16 @@
 <template>
     <Cont style="animation: fade .3s" hover class="flex flex-col justify-between relative">
         <p
-            :class="`absolute top-4 left-4 px-2 py-1 bg-gray-50 rounded-full text-gray-400 text-xs uppercase bg-opacity-50 ${$store.state.isMobile ? '' : 'backdrop-blur-sm'}`"
+            :class="`z-10 absolute top-4 left-4 px-2 py-1 bg-gray-50 rounded-full text-gray-400 text-xs uppercase bg-opacity-50 ${$store.state.isMobile ? '' : 'backdrop-blur-sm'}`"
         >{{ info.category }}</p>
 
         <div
             :class="`flex w-full justify-center flex-grow ${$store.state.isLarge ? 'h-px' : 'h-full'}`"
         >
-            <img
-                :class="`object-contain pointer-events-none ${$store.state.userPoints < info.cost ? 'grayscale opacity-50' : ''}`"
+            <Image
+                :imageclass="`object-contain pointer-events-none ${$store.state.userPoints < info.cost ? 'grayscale opacity-50' : ''}`"
                 :src="info.img.url"
-                :alt="info.name"
+                placeholder="/loading.png"
             />
         </div>
         <p
@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import { m } from "../../dist/assets/vendor.b2506a2a";
 import {
     redeem,
     addPoints,
@@ -63,18 +62,20 @@ export default {
                 await redeem(info._id);
                 this.$store.state.userPoints -= info.cost;
                 this.$store.state.buttonsStates[info._id] = '😃 Ok!'
-                console.log({
-                    ...info,
-                    _id: Math.random(),
-                    createDate: new Date().toISOString(),
-                    productId: info._id
-                })
+
+                // update times redeemed
+                const index = this.$store.state.items.findIndex(i => i._id == info._id)
+                this.$store.state.items[index].timesRedeemed++
+
+                //  update history array
                 this.$store.state.itemsHistory.push({
                     ...info,
                     _id: Math.random(),
                     createDate: new Date().toISOString(),
                     productId: info._id
                 })
+                this.$store.state.totalHistoryItems = this.$store.state.itemsHistory.length
+
                 setTimeout(() => {
                     this.$store.state.buttonsStates[info._id] = null
                     e.target.blur()
