@@ -4,23 +4,31 @@
         <div
             v-if="$store.state.showSideBarMobile"
             @click="$store.state.showSideBarMobile = false"
-            class="absolute top-8 right-8 p-4"
+            class="absolute top-8 right-8 p-4 z-30"
         >✖️</div>
 
         <div
             v-if="!$store.state.isMobile"
-            :class="`absolute top-0 left-0 min-w-[100%] min-h-[100px] bg-${$store.state.actualColor}-500`"
+            :class="`top-0 left-0 min-w-[100%] min-h-[100px] bg-${$store.state.actualColor}-500`"
         ></div>
 
         <img
             v-if="!$store.state.showSideBarMobile"
-            class="h-[150px] object-cover object-right"
-            src="/header.png"
+            class="h-[250px] object-cover object-right absolute -top-5 -right-16 z-10"
+            src="/auri1.png"
             alt="header"
         />
-        <div :class="`p-space bg-gradient-to-b from-${$store.state.actualColor}-500 to-white z-5`">
-            <p class="text-3xl">{{ $store.state.userName }}</p>
-            <p class="mt-4 text-1xl">{{ $store.state.userPoints }} points</p>
+        <div
+            :class="`p-space bg-gradient-to-b from-${$store.state.actualColor}-500 to-white relative min-h-[125px]`"
+        >
+            <div class="absolute w-full top-space lef-0 z-20">
+                <p
+                    @click="$store.state.userName = 'Noëlle Duval'"
+                    style="width: fit-content;"
+                    class="text-3xl backdrop-blur-md text-white rounded-half px-4 -ml-4"
+                >{{ $store.state.userName }}</p>
+                <p class="mt-4 text-1xl">{{ $store.state.userPoints }} points</p>
+            </div>
         </div>
         <!-- SECTIONS -->
         <div class="grid grid-cols-2 gap-space p-space">
@@ -48,50 +56,50 @@
                             class="m-1 flex-grow"
                             small
                             @click="changeOrderType('asc')"
-                        >asc</Butt>
+                        >Asc</Butt>
                         <Butt
                             :color="$store.state.actualOrderType == 'desc' ? $store.state.actualColor : 'gray'"
                             class="m-1 flex-grow"
                             small
                             @click="changeOrderType('desc')"
-                        >desc</Butt>
+                        >Desc</Butt>
                     </div>
                     <!-- SEPARATOR -->
                     <div class="min-h-[1px] max-h-[1px] w-full bg-gray-100 my-4"></div>
                     <!-- SEPARATOR -->
-                    <div class="flex flex-wrap -m-1 pt-4">
+                    <div class="flex flex-wrap -m-1">
                         <Butt
                             :color="$store.state.actualOrderBy == 'cost' ? $store.state.actualColor : 'gray'"
                             class="m-1"
                             small
                             @click="orderBy_('cost')"
-                        >cost</Butt>
+                        >Cost</Butt>
                         <Butt
                             :color="$store.state.actualOrderBy == 'name' ? $store.state.actualColor : 'gray'"
                             class="m-1"
                             small
                             @click="orderBy_('name')"
-                        >name</Butt>
+                        >Name</Butt>
                         <Butt
                             :color="$store.state.actualOrderBy == 'category' ? $store.state.actualColor : 'gray'"
                             class="m-1"
                             small
                             @click="orderBy_('category')"
-                        >category</Butt>
+                        >Category</Butt>
                         <Butt
                             :color="$store.state.actualOrderBy == 'timesRedeemed' ? $store.state.actualColor : 'gray'"
                             class="m-1"
                             small
                             v-if="$route.name == 'home'"
                             @click="orderBy_('timesRedeemed')"
-                        >timesRedeemed</Butt>
+                        >Times redeemed</Butt>
                         <Butt
                             :color="$store.state.actualOrderBy == 'createDate' ? $store.state.actualColor : 'gray'"
                             class="m-1"
                             small
                             v-if="$route.name == 'history'"
                             @click="orderBy_('createDate')"
-                        >createDate</Butt>
+                        >Create date</Butt>
                     </div>
                 </div>
                 <!-- ORDER -->
