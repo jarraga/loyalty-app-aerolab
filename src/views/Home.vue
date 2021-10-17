@@ -75,7 +75,7 @@
       v-if="$store.state.isMobile"
       half
       style="height: fit-content;"
-      class="flex justify-between ring-blue-500 ring-2 ring-opacity-50 ring-inset"
+      :class="`flex justify-between ring-${$store.state.actualColor}-500 ring-2 ring-opacity-50 ring-inset`"
     >
       <div class="flex space-x-2">
         <p class="font-bold">{{ $route.name == 'home' ? 'Items' : 'History' }}</p>
@@ -101,6 +101,7 @@ import CardHistory from '../components/CardHistory.vue'
 import Pagination from '../components/Pagination.vue'
 import HeaderMobile from '../components/HeaderMobile.vue'
 import { orderBy } from '../logic/orderBy'
+import { changeColor } from '../logic/color'
 
 export default {
   components: {
@@ -111,6 +112,10 @@ export default {
     HeaderMobile
   },
   mounted() {
+    const color = localStorage.getItem('themeColor')
+    if (color) {
+      changeColor(color)
+    }
     const cont = document.querySelector('#cont')
     const ro = new ResizeObserver(events => {
       setDynamicGrid()

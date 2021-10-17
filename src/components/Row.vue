@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="`row w-full bg-white text-gray-700 transition ${hover ? 'hover:shadow-hover' : ''
+        :class="`row w-full bg-white text-gray-700 transition ${hover ? `hover:shadow-${$store.state.actualColor}` : ''
         } px-space py-half`"
     >
         <slot />

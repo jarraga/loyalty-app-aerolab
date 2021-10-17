@@ -14,7 +14,7 @@
             />
         </div>
         <p
-            :class="`${$store.state.userPoints < info.cost ? 'text-gray-700' : 'text-blue-500'} text-lg font-bold`"
+            :class="`${$store.state.userPoints < info.cost ? 'text-gray-700' : `text-${$store.state.actualColor}-700`} text-lg font-bold`"
         >{{ info.name }}</p>
         <!-- COST & BUTTONS -->
         <div class="grid grid-cols-2 gap-half mt-2">
@@ -28,7 +28,7 @@
             <Butt
                 full
                 v-if="$store.state.userPoints >= info.cost"
-                color="blue"
+                :color="$store.state.actualColor"
                 @click="redeemItem($event, info)"
             >{{ $store.state.buttonsStates[info._id] ? $store.state.buttonsStates[info._id] : 'Redeem now' }}</Butt>
             <Butt

@@ -1,7 +1,7 @@
 <template>
     <div
         :class="`w-full bg-white text-gray-700 ${$store.state.isMobile ? 'rounded-half' : 'rounded-main'
-        } transition ${hover ? 'hover:shadow-hover' : ''
+        } transition ${hover ? `hover:shadow-${$store.state.actualColor}` : ''
         } ${half ? 'p-half' : 'p-space'}`"
     >
         <slot />

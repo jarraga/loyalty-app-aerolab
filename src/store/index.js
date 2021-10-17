@@ -21,7 +21,8 @@ export default createStore({
         itemsHistory: [],
         actualOrderType: 'asc',
         actualOrderBy: 'cost',
-        showSideBarMobile: false
+        showSideBarMobile: false,
+        actualColor: 'cyan',
     },
     mutations: {
     },

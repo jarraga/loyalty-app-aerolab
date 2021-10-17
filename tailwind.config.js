@@ -5,7 +5,34 @@ module.exports = {
         content: ['./src/**/*.vue'],
         options: {
             keyframes: true,
-        }
+        },
+        safelist: [
+            'from-cyan-500',
+            'from-blue-500',
+            'from-purple-500',
+            'from-green-500',
+            'from-pink-500',
+            'bg-cyan-500',
+            'bg-blue-500',
+            'bg-purple-500',
+            'bg-green-500',
+            'bg-pink-500',
+            'ring-cyan-500',
+            'ring-blue-500',
+            'ring-purple-500',
+            'ring-green-500',
+            'ring-pink-500',
+            'text-cyan-700',
+            'text-blue-700',
+            'text-purple-700',
+            'text-green-700',
+            'text-pink-700',
+            'hover:shadow-cyan',
+            'hover:shadow-blue',
+            'hover:shadow-purple',
+            'hover:shadow-green',
+            'hover:shadow-pink',
+        ]
     },
     darkMode: false,
     corePlugins: {
@@ -14,7 +41,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                blue: {
+                cyan: {
                     100: 'hsl(189, 100%, 95%)',
                     200: 'hsl(189, 100%, 85%)',
                     300: 'hsl(189, 100%, 75%)',
@@ -41,10 +68,11 @@ module.exports = {
                 half: '.5rem'
             },
             boxShadow: {
-                // hover: 'inset  0 0 0px 4px rgba(59, 130, 246, .5);',
-                // hoverSmall: 'inset  0 0 0px 2px rgba(59, 130, 246, .5);'
-                hover: 'inset  0 0 0px 4px hsla(189, 100%, 55%,.5);',
-                hoverSmall: 'inset  0 0 0px 2px hsla(189, 100%, 55%,.5);'
+                cyan: 'inset 0 0 0 4px #1ADDFF80',
+                blue: 'inset 0 0 0 4px #3B82F680',
+                purple: 'inset 0 0 0 4px #8B5CF680',
+                green: 'inset 0 0 0 4px #10B98180',
+                pink: 'inset 0 0 0 4px #EC489980'
             }
         },
     },
