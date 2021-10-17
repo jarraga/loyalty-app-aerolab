@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 h-screen w-full min-w-[360px] max-w-[1700px] mx-auto">
+  <div class="bg-gray-200 h-screen w-full min-h-[500px] min-w-[360px] max-w-[1700px] mx-auto">
     <router-view />
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
         this.$store.state.isMobile = true;
       } else {
         this.$store.state.isMobile = false;
+      }
+
+      if (window.innerWidth < 1024) {
+        this.$store.state.isLarge = false;
+      } else {
+        this.$store.state.isLarge = true;
       }
       // ALTURA MINIMA DE FUNCIONAMIENTO
       // const ratio = window.innerWidth / window.innerHeight;
@@ -43,10 +49,6 @@ export default {
   scrollbar-width: none;
   user-select: none;
 }
-/* img {
-  max-width: 100%;
-  height: 100%;
-} */
 ::-webkit-scrollbar {
   display: none;
 }

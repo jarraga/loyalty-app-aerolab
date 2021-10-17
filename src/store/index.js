@@ -14,7 +14,13 @@ export default createStore({
         totalItems: 0,
         gridStyle: '',
         isMobile: false,
+        isLarge: true,
         doingSomething: false,
+        buttonsStates: {},
+        items: [],
+        itemsHistory: [],
+        itemsOrderProperty: 'cost',
+        itemsHistoryOrderProperty: 'cost'
     },
     mutations: {
     },

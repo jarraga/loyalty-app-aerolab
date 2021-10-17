@@ -1,5 +1,5 @@
 <template>
-    <Cont class="flex justify-center items-center space-x-space">
+    <Cont half class="flex justify-center items-center space-x-space">
         <Butt
             :disabled="$store.state.pagination.actual == 1"
             @click="previous"

@@ -1,10 +1,8 @@
 <template>
-  <!-- @click="$emit('click', $event)" -->
-  <!-- @keypress.enter="$emit('click', $event)" -->
   <button
     :disabled="disabled"
-    tabindex="0"
-    :class="`flex justify-center items-center text-center cursor-pointer ${disabled ? 'bg-gray-100 text-gray-300 cursor-not-allowed' : `${bgColors[color]} ${textColors[color]} ${hoverColors[color]} ${borderColors[color]}`} ${$store.state.isMobile ? 'rounded-half' : 'rounded-main'} ${small ? 'px-3 py-1' : 'px-4 py-2'} ${full ? 'w-full' : 'w-max-min'} transition border-2 border-transparent outline-none text-sm`"
+    :style="`height: fit-content; ${full ? '' : 'width: fit-content;'}`"
+    :class="`cursor-pointer ${disabled ? 'bg-gray-100 text-gray-300 cursor-not-allowed' : `${bgColors[color]} ${textColors[color]} ${hoverColors[color]} ${borderColors[color]}`} ${$store.state.isMobile ? 'rounded-half' : 'rounded-main'} ${small ? 'px-3 py-1' : 'px-4 py-2'} ${full ? 'w-full' : ''} transition border-2 border-transparent outline-none text-sm`"
   >
     <slot></slot>
   </button>
