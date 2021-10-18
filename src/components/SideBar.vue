@@ -5,7 +5,9 @@
             v-if="$store.state.showSideBarMobile"
             @click="$store.state.showSideBarMobile = false"
             class="absolute top-8 right-8 p-4 z-30"
-        >✖️</div>
+        >
+            <img width="24" src="/close.svg" alt="close" />
+        </div>
 
         <div
             v-if="!$store.state.isMobile"
@@ -15,7 +17,7 @@
         <img
             v-if="!$store.state.showSideBarMobile"
             class="h-[250px] object-cover object-right absolute -top-5 -right-16 z-10"
-            src="/auri1.png"
+            src="/auri1_small.png"
             alt="header"
         />
         <div
@@ -25,7 +27,7 @@
                 <p
                     @click="$store.state.userName = 'Noëlle Duval'"
                     style="width: fit-content;"
-                    class="text-3xl backdrop-blur-md text-white rounded-half px-4 -ml-4"
+                    class="text-3xl backdrop-blur-md text-white rounded-half px-4 -ml-4 truncate max-w-[276px]"
                 >{{ $store.state.userName }}</p>
                 <p class="mt-4 text-1xl">{{ $store.state.userPoints }} points</p>
             </div>
@@ -49,7 +51,7 @@
             <!-- ORDER -->
             <div class="flex flex-col min-h-full">
                 <div class="flex-grow">
-                    <p>OrderBy</p>
+                    <p>Order by</p>
                     <div class="flex flex-wrap -m-1 pt-4 justify-center">
                         <Butt
                             :color="$store.state.actualOrderType == 'asc' ? $store.state.actualColor : 'gray'"

@@ -8,8 +8,14 @@ export const orderBy = property => {
     const type = store.state.actualOrderType == 'asc' ? -1 : 1
 
     store.state[array].sort((a, b) => {
-        if (a[property] > b[property]) return -1 * type
-        else if (a[property] < b[property]) return 1 * type
+
+        let aParsed
+        let bParsed
+        !isNaN(a[property]) ? aParsed = a[property] : aParsed = a[property].toLowerCase()
+        !isNaN(b[property]) ? bParsed = b[property] : bParsed = b[property].toLowerCase()
+
+        if (aParsed > bParsed) return -1 * type
+        else if (aParsed < bParsed) return 1 * type
         return 0
     })
 

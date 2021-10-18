@@ -1,9 +1,9 @@
 <template>
   <!-- LOADING -->
-  <div
-    class="w-full h-full flex justify-center items-center p-10"
-    v-if="state == states.LOADING"
-  >⏳ Loading...</div>
+  <div class="w-full h-full flex justify-center items-center p-10" v-if="state == states.LOADING">
+    <img width="24" src="/loading.svg" alt="loading" />
+    <p class="ml-3">Loading...</p>
+  </div>
   <!-- LOADING -->
 
   <!-- ERROR -->
@@ -11,7 +11,7 @@
     class="w-full h-full flex flex-col justify-center items-center p-10"
     v-if="state == states.ERROR"
   >
-    <p class="mb-4 text-center text-gray-700">💥 Error, check your internet connection and try again</p>
+    <p class="mb-4 text-center text-gray-700">⚠️ Error, check your internet connection and try again</p>
     <Butt color="gray" @click="init">Connect</Butt>
   </div>
   <!-- ERROR -->
@@ -20,7 +20,7 @@
   <div
     style="animation: appear .3s;"
     v-if="$store.state.showSideBarMobile"
-    class="absolute z-20 p-half h-full"
+    class="absolute z-20 p-half h-full w-full"
   >
     <SideBar />
   </div>
@@ -80,9 +80,10 @@
       <div class="flex space-x-2">
         <p class="font-bold">{{ $route.name == 'home' ? 'Items' : 'History' }}</p>
         <p>|</p>
-        <p>Order by: {{ $store.state.actualOrderBy }}</p>
+        <p>Order by: {{ orderByTitles[$store.state.actualOrderBy] }}</p>
       </div>
-      <p>☝🏽</p>
+
+      <img width="20" src="/up.svg" alt="menu" />
     </Cont>
     <!-- OPTIONS MOBILE -->
   </div>
@@ -170,6 +171,13 @@ export default {
         READY: 2,
         ERROR: 3,
       },
+      orderByTitles: {
+        name: 'Name',
+        cost: 'Cost',
+        category: 'Category',
+        timesRedeemed: 'Times redeemed',
+        createDate: 'Create date'
+      }
     };
   },
   watch: {

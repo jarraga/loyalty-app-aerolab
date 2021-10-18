@@ -17,7 +17,7 @@
             :class="`${$store.state.userPoints < info.cost ? 'text-gray-700' : `text-${$store.state.actualColor}-700`} text-lg font-bold`"
         >{{ info.name }}</p>
         <!-- COST & BUTTONS -->
-        <div class="grid grid-cols-2 gap-half mt-2">
+        <div class="grid grid-cols-[3fr,2fr] gap-half mt-2">
             <div class="flex items-center mb-2 h-full">
                 <img class="h-5 mr-2" src="/coin.svg" alt="points" />
                 <p>{{ info.cost }}</p>
@@ -81,7 +81,7 @@ export default {
                     e.target.blur()
                 }, 1000);
             } catch (error) {
-                this.$store.state.buttonsStates[id] = '💥 Error'
+                this.$store.state.buttonsStates[id] = '⚠️ Error'
                 setTimeout(() => {
                     this.$store.state.buttonsStates[id] = null
                     e.target.blur()

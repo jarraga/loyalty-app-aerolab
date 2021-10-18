@@ -28,7 +28,7 @@ export const setDynamicGrid = t => {
     }
 
     const minWidth = {
-        home: 350,
+        home: 325,
         history: 1000
     }
 

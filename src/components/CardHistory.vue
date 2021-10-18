@@ -3,7 +3,7 @@
         v-if="$store.state.isLarge"
         style="animation: fade .3s"
         hover
-        class="grid grid-cols-[auto,3fr,3fr,1fr,auto] gap-space w-full items-center"
+        class="grid grid-cols-[auto,3fr,4fr,1fr] gap-space w-full items-center"
     >
         <div :class="`flex justify-center w-12`">
             <img class="object-contain pointer-events-none" :src="info.img.url" :alt="info.name" />
@@ -21,14 +21,14 @@
             <p>{{ info.cost }}</p>
         </div>
 
-        <Butt small color="gray" @click="redeemItem($event, info._id, info.cost)">View details</Butt>
+        <!-- <Butt small color="gray" @click="redeemItem($event, info._id, info.cost)">View details</Butt> -->
     </Row>
     <!-- LARGE - MOBILE -->
     <Row
         v-if="!$store.state.isLarge"
         style="animation: fade .3s"
         hover
-        class="grid grid-cols-[auto,1fr,1fr] gap-space w-full items-center"
+        class="grid grid-cols-[auto,1fr] gap-space w-full items-center"
     >
         <div :class="`flex justify-center w-12`">
             <img class="object-contain pointer-events-none" :src="info.img.url" :alt="info.name" />
@@ -39,21 +39,20 @@
                 <p class="text-gray-700 font-bold truncate">{{ info.name }}</p>
             </div>
             <p class="text-gray-500 text-sm">{{ parseDate(info.createDate) }}</p>
-        </div>
-
-        <div class="flex flex-col justify-center">
-            <div class="flex items-center justify-center mb-4">
-                <img class="h-5 mr-2" src="/coin.svg" alt="points" />
+            <div class="flex items-center">
+                <img class="h-4 mr-2" src="/coin.svg" alt="points" />
                 <p>{{ info.cost }}</p>
             </div>
+        </div>
 
+        <!-- <div class="flex flex-col justify-center">
             <Butt
                 small
                 full
                 color="gray"
                 @click="redeemItem($event, info._id, info.cost)"
             >View details</Butt>
-        </div>
+        </div>-->
     </Row>
 </template>
 
@@ -62,7 +61,8 @@ export default {
     methods: {
         parseDate(value) {
             const date = new Date(value)
-            return date.toDateString()
+            return date.toUTCString().toLowerCase()
+            // return date.toDateString()
         }
 
     },
