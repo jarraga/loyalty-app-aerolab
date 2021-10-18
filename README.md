@@ -1,7 +1,49 @@
-# Vue 3 + Vite
+# Loyalty app (aerolab.co challenge)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## [Live demo](https://loyalty-app-aerolab.web.app/)
 
-## Recommended IDE Setup
+## [Challenge](https://aerolab.co/coding-challenge-instructions?utm_campaign=Coding%20Challenge)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+## [API](https://aerolabchallenge.docs.apiary.io/#reference/0/products/get)
+
+## Descripción
+
+Challenge realizado para aerolab.co
+
+La aplicación esta desarrollada con vite.js, vue, vue router, vuex, tailwindcss con modo JIT, y desplegada con firebase hosting como SPA.
+
+Características principales:
+
+- Componentes completamente hechos desde cero, sin librerías
+- Grilla dinámica con js, se adapta a cualquier tamaño de pantalla
+- Comportamiento de grilla para pantallas grandes, y scroll para mobile
+- Paginado en la sección de ítems e historial
+- Selección de theme color que queda guardada en el localStorage
+- Criterios de ordenamiento para todas las propiedades de los objetos
+- Placeholder para carga de imágenes
+- Opengraph metadata
+- Loadings y catch de errores en todas las operaciones asíncronas
+
+## Capturas
+
+![01](./screenshots/01.png)
+![02](./screenshots/02.png)
+![03](./screenshots/03.png)
+
+## Correr en modo dev
+
+```shell
+npm i
+
+npm run tw
+npm run dev
+```
+
+## Compilar
+
+```shell
+npm run tw:build
+npm run build
+
+npm run serve
+```
